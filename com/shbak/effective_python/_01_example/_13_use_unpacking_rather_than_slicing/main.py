@@ -32,6 +32,21 @@ def print_unpacking_empty_list():
     print(colored(f'rest: {rest}', 'green'))
 
 
+def print_generate_csv():
+    print(colored(f'{print_generate_csv.__name__}() called', 'yellow'))
+    it = generate_csv()
+    for i, val in enumerate(it, 0):
+        print(colored(f'{i} : {val}', 'green'))
+
+
+def generate_csv():
+    yield 'date', 'menufacturer', 'model', 'old', 'price'
+    yield ('2021-01-04', 'hyundai', 'sonata', '2015', '2,300')
+    yield ('2021-01-05', 'bmw', 'x7', '2020', '12,300')
+    yield ('2021-01-06', 'benz', 'gle', '2021', '13,300')
+
+
 if __name__ == '__main__':
     asterisk_unpacking_for_unknown_the_number_of_elements()
     print_unpacking_empty_list()
+    print_generate_csv()
