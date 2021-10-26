@@ -39,6 +39,14 @@ def print_generate_csv():
         print(colored(f'{i} : {val}', 'green'))
 
 
+# use starred expression
+# start index "1" because don't use header
+def print_csv_without_header():
+    print(colored(f'{print_csv_without_header.__name__}() called', 'yellow'))
+    header, *data = generate_csv()
+    for i, val in enumerate(data, 1):
+        print(colored(f'{i} : {val}', 'green'))
+
 def generate_csv():
     yield 'date', 'menufacturer', 'model', 'old', 'price'
     yield ('2021-01-04', 'hyundai', 'sonata', '2015', '2,300')
@@ -50,3 +58,4 @@ if __name__ == '__main__':
     asterisk_unpacking_for_unknown_the_number_of_elements()
     print_unpacking_empty_list()
     print_generate_csv()
+    print_csv_without_header()
