@@ -44,9 +44,12 @@ def print_generate_csv():
 def print_csv_without_header():
     print(colored(f'{print_csv_without_header.__name__}() called', 'yellow'))
     header, *data = generate_csv()
+    print(colored(f'{0} : {header}', 'magenta'))
     for i, val in enumerate(data, 1):
         print(colored(f'{i} : {val}', 'green'))
 
+
+# yield operator can express tuple just comma separate without brace
 def generate_csv():
     yield 'date', 'menufacturer', 'model', 'old', 'price'
     yield ('2021-01-04', 'hyundai', 'sonata', '2015', '2,300')
