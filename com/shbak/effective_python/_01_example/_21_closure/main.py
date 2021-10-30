@@ -73,5 +73,5 @@ def call_sort_priority():
     print(colored(f'[Sorted]numbers: {numbers}', 'green'))
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     call_sort_priority()
