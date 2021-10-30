@@ -65,6 +65,7 @@ class Student:
 
 class Gradebook:
     def __init__(self):
+        # defaultdict function can get function that have no parameter
         self._students = defaultdict(Student)
 
     def get_student(self, name):
@@ -81,7 +82,7 @@ def use_classes():
     gym = albert.get_subject('Gym')
     gym.report_grade(100, 0.40)
     gym.report_grade(85, 0.60)
-    print(albert.average_grade())
+    print(colored(f'albert.average_grade(): {albert.average_grade()}', 'green'))
 
 
 if __name__ == '__main__':
