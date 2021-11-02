@@ -2,7 +2,8 @@
 # game title: Game of life
 # rule: 5 x 5 grid consist of cell, cell status is EMPTY or ALIVE
 #       when ticks pass around 8 cell's status make cell's ALIABILITY (the number of ALIVE cell)
-
+import select
+import socket
 
 from termcolor import colored
 
@@ -58,6 +59,7 @@ def count_neighbors(x, y, get):
 
 
 def game_logic(state, neighbors):
+    select.select([socket.socket()], [], [], 0.1)
     if state == ALIVE:
         if neighbors < 2:
             return EMPTY
