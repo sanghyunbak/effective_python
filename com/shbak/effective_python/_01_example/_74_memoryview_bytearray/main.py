@@ -31,6 +31,7 @@ def bytes_and_bytearray_test():
     write_view[:] = b'-10 bytes-'
     print(my_array)
 
+
 def run_test():
     my_array = bytearray('row, row, row your boat'.encode('utf8'))
     my_view = memoryview(my_array)
@@ -41,14 +42,16 @@ def run_test():
     chunk = write_view[byte_offset:byte_offset + size]
     # socket.recv_info(chunk)
 
+
 def benchmark():
     result = timeit.timeit(
         stmt='run_test()',
         globals=globals(),
         number=100
-    )/100
+    ) / 100
 
     print(colored(f'{result:0.9f} sec', 'magenta'))
+
 
 if __name__ == '__main__':
     print_memoryview()
