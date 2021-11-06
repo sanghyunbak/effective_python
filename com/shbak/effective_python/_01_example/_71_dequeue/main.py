@@ -75,7 +75,7 @@ def print_delta(before, after):
     after_count, after_time = after
     growth = 1 + (after_count - before_count) / before_count
     slowdown = 1 + (after_time - before_time) / before_time
-    print(colored(f'Data size: {growth:>4.1f}x, elapse: {slowdown:>4.1f}x speed'))
+    print(colored(f'Data size: {growth:>4.1f}x, elapse: {slowdown:>4.1f}x speed', 'magenta'))
 
 
 def list_pop_benchmark(count):
