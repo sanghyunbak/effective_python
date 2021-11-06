@@ -20,7 +20,7 @@ def insert_value(array, value):
 #     for i, existing in enumerate(array):
 #         if existing > value:
 #             array.insert(i, value)
-#             return
+#             retur
 #     array.append(value)
 
 def test():
