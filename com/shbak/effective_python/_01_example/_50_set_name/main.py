@@ -1,3 +1,4 @@
+#
 from termcolor import colored
 
 
@@ -50,14 +51,21 @@ def run_fixed_customer():
 
 class Customer:
     first_name = Field('first_name')
+    second_name = 3
     last_name = Field('last_name')
     prefix = Field('prefix')
     suffix = Field('suffix')
 
+    def __init__(self, first_name):
+        self.first_name = first_name
+
+
+
 
 def use_customer():
-    cust = Customer()
-    print(colored(f'[Before]: {cust.first_name!r} {cust.__dict__}', 'green'))
+    cust = Customer('12')
+    print(colored(f'[Before]: cust.first_name: {cust.first_name!r} cust.__dict__: {cust.__dict__}'
+                  f',\n     Customer.first_name: {Customer.first_name}, Customer.second_name: {Customer.second_name!r}', 'green'))
     cust.first_name = 'euclid'
     print(colored(f'[After]: {cust.first_name!r} {cust.__dict__}', 'green'))
 
