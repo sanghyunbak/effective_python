@@ -4,6 +4,8 @@ import time
 
 from termcolor import colored
 
+from com.shbak.effective_python._01_example._26_decorator.trace import trace_func
+
 TEST_DURATION = '3'
 
 
@@ -45,6 +47,12 @@ def copy_system_env():
 
 
 def encscrypt_with_system_env(data):
+    """ openssl command need type information after command execution
+    in stdin need "<ctrl> + d" when end of your typing
+
+    :param data:
+    :return:
+    """
     env = copy_system_env()
     env['password'] = 'zfoiwjfa;owifj;oewifj/awe/fpja'
     proc = subprocess.Popen(
@@ -85,6 +93,38 @@ def run_encscrypt():
         print(colored(f'out[-10:]: {out[-10:]}', 'green'))
 
 
+def run_hash(input_stdin):
+    return subprocess.Popen(
+        ['openssl', 'dgst', '-whirlpool', '-binary'],
+        stdin=input_stdin,
+        stdout=subprocess.PIPE)
+
+
+@trace_func
+def call_hash_with_pipe_chaining():
+    encrypt_procs = []
+    hash_procs = []
+    for _ in range(3):
+        data = os.urandom(100)
+        encrypt_proc = encscrypt_with_system_env(data)
+        encrypt_procs.append(encrypt_proc)
+
+        hash_proc = run_hash(encrypt_proc.stdout)
+        hash_procs.append(hash_proc)
+
+        encrypt_proc.stdout.close()
+        encrypt_proc.stdout = None
+
+    for proc in encrypt_procs:
+        proc.communicate()
+        assert proc.returncode == 0
+
+    for proc in hash_procs:
+        out, _ = proc.communicate()
+        print(colored(f'out[-10:]: {out[-10:]}', 'green'))
+        assert proc.returncode == 0
+
+
 if __name__ == '__main__':
     copy_system_env()
     run_echo_subprocess()
@@ -92,3 +132,4 @@ if __name__ == '__main__':
     popen_subprocess_10_sleep()
     run_encscrypt()
     echo_with_stdin()
+    call_hash_with_pipe_chaining()
