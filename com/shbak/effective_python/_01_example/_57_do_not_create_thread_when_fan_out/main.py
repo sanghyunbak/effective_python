@@ -1,3 +1,5 @@
+import contextlib
+import io
 from threading import Lock, Thread
 
 from com.shbak.effective_python._01_example._56_when_need_concurrent.main import Grid, step_cell
@@ -39,3 +41,19 @@ def simulated_threaded(grid):
         thread.join()  # fan in
 
     return next_grid
+
+
+def error_raise():
+    raise OSError('I/O problam occur!')
+
+
+def thread_redirect_stderr_to_string_io():
+    fake_stderr = io.StringIO()
+    with contextlib.redirect_stderr(fake_stderr):
+        thread = Thread(target=error_raise())
+        thread.start()
+        thread.join()
+
+
+if __name__ == '__main__':
+    thread_redirect_stderr_to_string_io()

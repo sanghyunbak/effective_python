@@ -18,6 +18,7 @@ def worker(sensor_index, how_many, counter):
 
 def thread_counter():
     how_many = 10 ** 5
+    print(colored(f'10 ** 5: {how_many}', 'green'))
     counter = Counter()  # critical section
 
     threads = []
