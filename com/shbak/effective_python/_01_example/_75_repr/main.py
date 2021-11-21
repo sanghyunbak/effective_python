@@ -54,7 +54,18 @@ def print_better_class():
     print(colored(f'BetterClass obj: {obj}', 'green'))
 
 
+@trace_func
+def show_str_int():
+    int_var = 5
+    str_var = '5'
+
+    print(colored(f'repr statements distinguish string and integer', 'yellow'))
+    print(colored(f'int_var: {int_var!r}\nstr_var: {str_var!r}', 'green'))
+
+
+
 if __name__ == '__main__':
+    show_str_int()
     print_str()
     print_repr()
     print_opaque()

@@ -1,9 +1,12 @@
+# pickle has a code that decode pickle
 # pickle dumps current state
 # state change (add or delete attribute etc)
 # loads pickle
 # assert object comparison -> that fail!!!
 # make better
-# use default attribute value
+# use default attribute value and copyreg library to unpickle new version of object
+# copyreg need helper function to pickle, copyreg is interceptor of pickle
+
 import copyreg
 import pickle
 
@@ -11,11 +14,14 @@ from termcolor import colored
 
 
 class BetterGameState:
-    def __init__(self, level=0, lives=4):#, points=0, version=0):
+    test = 3
+
+    def __init__(self, level=0, lives=4):  # , points=0, version=0):
         self.level = level
         self.lives = lives
         # self.points = points
         # self.version = version
+
 
 def pickle_game_state(game_state):
     kwargs = game_state.__dict__
@@ -43,10 +49,14 @@ def pickle_gamestate():
 
 _state_path = 'game_state.bin'
 
+
+def dict_test(object):
+    print(colored(f'object.__dict__: {object.__dict__}', 'green'))
+
+
 def pickle_save_gamestate_file():
     state = BetterGameState()
     serialized = pickle.dumps(state)
-
 
     with open(_state_path, 'wb') as f:
         pickle.dump(state, f)
@@ -63,11 +73,8 @@ def pickle_load_gamestate_file():
 
 if __name__ == '__main__':
     pickle_gamestate()
-    # pickle_save_gamestate_file()
-    copyreg_pickle()
+    pickle_save_gamestate_file()
     pickle_load_gamestate_file()
-
-
-
-
-
+    obj = BetterGameState()
+    dict_test(obj)
+    print(colored(f'__dict__ did not return class instance ', 'yellow'))
