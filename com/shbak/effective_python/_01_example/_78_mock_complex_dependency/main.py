@@ -1,7 +1,7 @@
 # https://github.com/bslatkin/effectivepython/blob/master/example_code/item_78.py
 
 from datetime import datetime
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from termcolor import colored
 
@@ -75,7 +75,7 @@ class MyError(Exception):
     pass
 
 
-_mock.side_effect = MyError('Whoops! Big problem')
+# _mock.side_effect = MyError('Whoops! Big problem')
 
 
 if __name__ == '__main__':
@@ -86,3 +86,8 @@ if __name__ == '__main__':
     _mock.assert_called_once_with(database, 'Meerkat')
     print(colored(f'result: {result}', 'green'))
     _mock('Meerkat')
+
+    with patch('__main__.get_animals'):
+        print('Internal Patch:', get_animals)
+        result = get_animals(database, 'Meerkat')
+        print(colored(f'get_animals() result: {result}:', 'yellow'))
