@@ -65,3 +65,40 @@ class BySubjectGradebook:
         self._grades[name] = defaultdict(list)  # Inner dict
 
 ```
+
+<br /> 
+
+### Item 43: Inherit from collections.abc for Custom Container Types
+---
+ > [!info] 
+ > - 데이터(container) 관련 클래스를 작성할 때 파이썬 빌트인 컨테이너 타입(lists, tuples, sets, and dictionaries)을 사용할 수 있다.
+
+  > [!explain] list를 상속 받는 경우
+```python
+class FrequencyList(list):
+	def __init__(self, members):
+	    super().__init__(members)
+    
+    def frequency(self):
+		counts = {}
+
+		for item in self:
+			counts[item] = counts.get(item, 0) + 1
+
+		return counts
+```
+
+ > [!info] 
+ > - list 클래스의 서브타입이 부담스러울 수 있다.
+ > - 사용자가 Sequence를 구현하는 것은 생각보다 쉽지 않다.
+
+  > [!explain] python이 마련해 주는 `collection.abc` 모듈(컨테이너 타입이 가져야 할 메서드들을 구비해 둠)로 쉽게 구현할 수 있게 해준다. (abc는 abstract base class)
+ ```python
+from collections.abc import Sequence
+
+class BadType(Sequence):
+	pass
+
+foo = BadType()
+```
+
